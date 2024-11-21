@@ -1,0 +1,9 @@
+Open kalilinux terminal
+sudo ettercap -G
+now click on ‘tick’ mark
+now click on 3 dots in right
+select hosts and click on scan for hosts
+now again click on 3 dots and hosts
+select host list
+select 1st host as target 1 and 2nd host as target 2
+now click on 2nd left option to 3 dots (earth symbol) and click on arp poisoning
