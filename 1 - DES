@@ -1,1 +1,20 @@
+from Crypto.Cipher import AES, DES
+from Crypto.Random import get_random_bytes
+from Crypto.Util.Padding import pad, unpad
 
+# DES Encrypt/Decrypt
+def des_encrypt(data, key):
+ cipher = DES.new(key, DES.MODE_CBC)
+ return cipher.iv, cipher.encrypt(pad(data, DES.block_size))
+def des_decrypt(data, key, iv):
+ cipher = DES.new(key, DES.MODE_CBC, iv)
+ return unpad(cipher.decrypt(data), DES.block_size)
+# Example Usage
+key_des = get_random_bytes(8)
+text = b"HelloWorld"
+
+# DES Example
+iv_des, encrypted_des = des_encrypt(text, key_des)
+decrypted_des = des_decrypt(encrypted_des, key_des, iv_des)
+
+print("DES:", encrypted_des, "->", decrypted_des.decode())
