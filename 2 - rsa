@@ -1,0 +1,19 @@
+from math import gcd
+def rsa(p,q,mes):
+     n = p*q
+     t = (p-1)*(q-1)
+     for e in range(2,t):
+         if gcd(e,t)==1:
+             break
+         
+     for d in range(1,t):
+         if (d*e)%t==1:
+             break
+
+     ct = pow(mes,e,n)
+     message = pow(ct,d,n)
+     print("encrypted_message",ct)
+     print("decrypted_message",message)
+
+rsa(53,59,89)
+rsa(3,7,12)
