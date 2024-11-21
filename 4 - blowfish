@@ -1,0 +1,21 @@
+from Crypto.Cipher import Blowfish
+from Crypto.Util.Padding import pad,unpad
+import base64
+
+def blowfish_encrypt(key,data):
+    cipher = Blowfish.new(key,Blowfish.MODE_ECB)
+    encrypted_data = cipher.encrypt(pad(data.encode(),Blowfish.block_size))
+    return base64.b64encode(encrypted_data).decode()
+def blowfish_decrypt(key,data):
+    cipher = Blowfish.new(key,Blowfish.MODE_ECB)
+    decrypted_data = unpad(cipher.decrypt(base64.b64decode(data)),Blowfish.block_size)
+    return decrypted_data.decode()
+
+key = b"securekey"
+data = "This is a secret message"
+
+enc = blowfish_encrypt(key, data)
+dec = blowfish_decrypt(key, enc)
+
+print("encrypted",enc)
+print("decrypted",dec)
