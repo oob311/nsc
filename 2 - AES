@@ -1,0 +1,19 @@
+from Crypto.Cipher import AES, DES
+from Crypto.Random import get_random_bytes
+from Crypto.Util.Padding import pad, unpad
+# AES Encrypt/Decrypt
+def aes_encrypt(data, key):
+ cipher = AES.new(key, AES.MODE_CBC)
+ return cipher.iv, cipher.encrypt(pad(data, AES.block_size))
+def aes_decrypt(data, key, iv):
+ cipher = AES.new(key, AES.MODE_CBC, iv)
+ return unpad(cipher.decrypt(data), AES.block_size)
+
+# Example Usage
+key_aes = get_random_bytes(16)
+text = b"HelloWorld"
+# AES Example
+iv_aes, encrypted_aes = aes_encrypt(text, key_aes)
+decrypted_aes = aes_decrypt(encrypted_aes, key_aes, iv_aes)
+
+print("AES:", encrypted_aes, "->", decrypted_aes.decode())
