@@ -13,7 +13,7 @@ sudo apt install iptables
 iptables -F
 iptables -L
 iptables -A INPUT -s (ip address) -j ACCEPT
-#i paddress u will get by using command “nslookup www.google.com” in command prompt in windows
+#ip-address u will get by using command “nslookup www.google.com” in command prompt in windows
 iptables -L
 iptables -A INPUT -s (ip address) -j DROP
 iptables -L
