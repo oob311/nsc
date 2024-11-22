@@ -1,3 +1,4 @@
+#use command "pip install pycryptodome" in console of spyder
 from Crypto.Cipher import AES, DES
 from Crypto.Random import get_random_bytes
 from Crypto.Util.Padding import pad, unpad
