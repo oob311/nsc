@@ -1,0 +1,18 @@
+def caesar_cipher(text, shift_key, mode):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            base = ord('a') if char.islower() else ord('A')
+            result += chr((ord(char) - base + mode * shift_key) % 26 + base)
+        else:
+            result += char
+    return result
+
+text = input("Enter the text: ")
+shift_key = int(input("Enter the shift key: "))
+
+encrypted_text = caesar_cipher(text, shift_key, 1)
+print(f"Encrypted message: {encrypted_text}")
+
+decrypted_text = caesar_cipher(encrypted_text, shift_key, -1)
+print(f"Decrypted message: {decrypted_text}")
