@@ -1,3 +1,4 @@
+#run the following commands in kali linux terminal
 sudo apt-get update
 sudo apt install ufw
 sudo ufw enable
