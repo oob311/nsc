@@ -1,17 +1,21 @@
 def power(a, b, P):
     return pow(a, b, P)
 
-def main():
-    P = int(input("Enter a prime number (P): "))
-    G = int(input("Enter a generator (G): "))
-    a = int(input("Enter Alice's private key (a): "))
-    b = int(input("Enter Bob's private key (b): "))
-    
-    x = power(G, a, P)
-    y = power(G, b, P)
-    
-    print(f"P: {P}, G: {G}")
-    print(f"Alice's private key: {a}, Bob's private key: {b}")
-    print(f"Secret key for Alice: {power(y, a, P)}, Secret key for Bob: {power(x, b, P)}")
+P = int(input("Enter a prime number (P): "))
+G = int(input("Enter a generator (G): "))
+a = int(input("Enter Alice's private key (a): "))
+b = int(input("Enter Bob's private key (b): "))    
 
-main()
+x = power(G, a, P)
+y = power(G, b, P)
+
+print(f"P: {P}")
+print(f"G: {G}")
+
+print(f"Alice's private key: {a}")
+print(f"Bob's private key: {b}")
+
+print(f"Secret key for Alice: {power(y, a, P)}")
+print(f"Secret key for Bob: {power(x, b, P)}")
+
+
