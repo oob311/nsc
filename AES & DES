@@ -1,29 +1,30 @@
 from Crypto.Cipher import AES, DES
 from Crypto.Random import get_random_bytes
 from Crypto.Util.Padding import pad, unpad
-# AES Encrypt/Decrypt
+
 def aes_encrypt(data, key):
  cipher = AES.new(key, AES.MODE_CBC)
  return cipher.iv, cipher.encrypt(pad(data, AES.block_size))
 def aes_decrypt(data, key, iv):
  cipher = AES.new(key, AES.MODE_CBC, iv)
  return unpad(cipher.decrypt(data), AES.block_size)
-# DES Encrypt/Decrypt
+
 def des_encrypt(data, key):
  cipher = DES.new(key, DES.MODE_CBC)
  return cipher.iv, cipher.encrypt(pad(data, DES.block_size))
 def des_decrypt(data, key, iv):
  cipher = DES.new(key, DES.MODE_CBC, iv)
  return unpad(cipher.decrypt(data), DES.block_size)
-# Example Usage
+
 key_aes = get_random_bytes(16)
 key_des = get_random_bytes(8)
 text = b"HelloWorld"
-# AES Example
+
 iv_aes, encrypted_aes = aes_encrypt(text, key_aes)
 decrypted_aes = aes_decrypt(encrypted_aes, key_aes, iv_aes)
-# DES Example
+
 iv_des, encrypted_des = des_encrypt(text, key_des)
 decrypted_des = des_decrypt(encrypted_des, key_des, iv_des)
+
 print("AES:", encrypted_aes, "->", decrypted_aes.decode())
 print("DES:", encrypted_des, "->", decrypted_des.decode())
