@@ -1,0 +1,25 @@
+def rc4(key, text):
+    S = list(range(256))
+    j = 0
+    for i in range(256):
+        j = (j + S[i] + ord(key[i % len(key)])) % 256
+        S[i], S[j] = S[j], S[i]
+
+    i = j = 0
+    result = []
+    for char in text:
+        i = (i + 1) % 256
+        j = (j + S[i]) % 256
+        S[i], S[j] = S[j], S[i]
+        result.append(chr(ord(char) ^ S[(S[i] + S[j]) % 256]))
+
+    return ''.join(result)
+
+key = input("Enter the encryption key: ")
+plaintext = input("Enter the plaintext to encrypt: ")
+
+ciphertext = rc4(key, plaintext)
+print("Encrypted:", ciphertext)
+
+decrypted_text = rc4(key, ciphertext)
+print("Decrypted:", decrypted_text)
