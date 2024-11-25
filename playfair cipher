@@ -1,8 +1,8 @@
 def prepare_Table(key):
-    key = "".join(dict.fromkeys(key.replace('j', 'i')))  # Replace 'j' with 'i' and remove duplicates
-    alphabets = "abcdefghiklmnopqrstuvwxyz"  # 'j' is omitted
-    key += ''.join(a for a in alphabets if a not in key)  # Add remaining letters
-    return [key[i:i + 5] for i in range(0, 25, 5)]  # Create a 5x5 table
+    key = "".join(dict.fromkeys(key.replace('j', 'i')))  
+    alphabets = "abcdefghiklmnopqrstuvwxyz"  
+    key += ''.join(a for a in alphabets if a not in key) 
+    return [key[i:i + 5] for i in range(0, 25, 5)]  
 
 def find(table, p):
     for i in range(5):
