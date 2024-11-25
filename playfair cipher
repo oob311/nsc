@@ -46,17 +46,14 @@ def decrypt(key, text):
     
     return decrypted
 
-# Example usage
 key = "jadcsvjhsadhvbadishvbsa"
 text = "dsfahbvksbkhvabhkvkz"
 
 print("Original text:", text)
 print("Encryption key:", key)
 
-# Encrypt the text
 encrypted_text = encrypt(key, text)
 print("Encrypted text:", encrypted_text)
 
-# Decrypt the text
 decrypted_text = decrypt(key, encrypted_text)
 print("Decrypted text:", decrypted_text)
