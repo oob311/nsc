@@ -1,37 +1,62 @@
-def prepare_key_table(key):
-    key = "".join(dict.fromkeys(key.replace('j','i')))
-    alphabets = "abcdefghiklmnopqrstuvwxyz"
-    key += ''.join(c for c in alphabets if c not in key)
-    return [key[i:i+5] for i in range(0,25,5)]
+def prepare_Table(key):
+    key = "".join(dict.fromkeys(key.replace('j', 'i')))  # Replace 'j' with 'i' and remove duplicates
+    alphabets = "abcdefghiklmnopqrstuvwxyz"  # 'j' is omitted
+    key += ''.join(a for a in alphabets if a not in key)  # Add remaining letters
+    return [key[i:i + 5] for i in range(0, 25, 5)]  # Create a 5x5 table
 
-def find_position(table,b):
+def find(table, p):
     for i in range(5):
         for j in range(5):
-            if table[i][j] == b:
-                return i,j
-            
-def encrypt_pair(table,a,b):
-    row1,col1 = find_position(table,a)
-    row2,col2 = find_position(table,b)
-    if(row1==row2):
-        return table[row1][(col1+1)%5] + table[row2][(col2+1)%5]
-    elif(col1==col2):
-        return table[(row1+1)%5][col1] + table[(row1+1)%5][col2]
+            if table[i][j] == p:
+                return i, j
+
+def pair(table, p, q,mode):
+    r1, c1 = find(table, p)
+    r2, c2 = find(table, q)
+    if r1 == r2:
+        return table[r1][(c1 + mode) % 5] + table[r2][(c2 + mode) % 5]
+    elif c1 == c2:
+        return table[(r1 + mode) % 5][c1] + table[(r2 + mode) % 5][c2]
     else:
-        return table[row1][col1] + table[row2][col2]
-    
-def encryption(key,text):
-    table = prepare_key_table(key)
-    text = text.replace('j','i').replace(" ","")
-    if(len(text)%2!=0):
-        text += 'z'
+        return table[r1][c2] + table[r2][c1]
+
+def encrypt(key, text):
+    text = text.replace('j', 'i').replace(" ", "")
+    table = prepare_Table(key)
     encrypted = ""
-    for i in range(0,len(text),2):
+    if len(text) % 2 != 0:
+        text += 'z'
+    for i in range(0, len(text), 2):
         a = text[i]
-        b = text[i+1]
-        encrypted += encrypt_pair(table,a,b)
+        b = text[i + 1]
+        if a == b:
+            b = 'x'
+        encrypted += pair(table, a, b,1)
+    
     return encrypted
 
-key = "helloworld"
-text = "instruments"
-print(encryption(key,text))
+def decrypt(key, text):
+    text = text.replace(" ", "")
+    table = prepare_Table(key)
+    decrypted = ""
+    for i in range(0, len(text), 2):
+        a = text[i]
+        b = text[i + 1]
+        decrypted += pair(table, a, b,-1)
+    
+    return decrypted
+
+# Example usage
+key = "jadcsvjhsadhvbadishvbsa"
+text = "dsfahbvksbkhvabhkvkz"
+
+print("Original text:", text)
+print("Encryption key:", key)
+
+# Encrypt the text
+encrypted_text = encrypt(key, text)
+print("Encrypted text:", encrypted_text)
+
+# Decrypt the text
+decrypted_text = decrypt(key, encrypted_text)
+print("Decrypted text:", decrypted_text)
