@@ -1,0 +1,76 @@
+def prepare_table(key):
+    key = key.replace('j', 'i')
+    seen = set()
+    filtered_key = ""
+    for char in key:
+        if char not in seen:
+            filtered_key += char
+            seen.add(char)
+    
+    alphabets = "abcdefghiklmnopqrstuvwxyz"
+    for char in alphabets:
+        if char not in seen:
+            filtered_key += char
+    
+    table = []
+    for start in range(0, 25, 5):
+        row = ""
+        for j in range(5):
+            row += filtered_key[start + j]
+        table.append(row)
+    
+    return table
+
+def find(table, p):
+    for i in range(5):
+        for j in range(5):
+            if table[i][j] == p:
+                return i, j
+
+def pair(table, p, q,mode):
+    r1, c1 = find(table, p)
+    r2, c2 = find(table, q)
+    if r1 == r2:
+        return table[r1][(c1 + mode) % 5] + table[r2][(c2 + mode) % 5]
+    elif c1 == c2:
+        return table[(r1 + mode) % 5][c1] + table[(r2 + mode) % 5][c2]
+    else:
+        return table[r1][c2] + table[r2][c1]
+
+def encrypt(key, text):
+    text = text.replace('j', 'i').replace(" ", "")
+    table = prepare_Table(key)
+    encrypted = ""
+    if len(text) % 2 != 0:
+        text += 'z'
+    for i in range(0, len(text), 2):
+        a = text[i]
+        b = text[i + 1]
+        if a == b:
+            b = 'x'
+        encrypted += pair(table, a, b,1)
+    
+    return encrypted
+
+def decrypt(key, text):
+    text = text.replace(" ", "")
+    table = prepare_Table(key)
+    decrypted = ""
+    for i in range(0, len(text), 2):
+        a = text[i]
+        b = text[i + 1]
+        decrypted += pair(table, a, b,-1)
+    
+    return decrypted
+
+key = "jadcsvjhsadhvbadishvbsa"
+text = "dsfahbvksbkhvabhkvkz"
+
+print("Original text:", text)
+print("Encryption key:", key)
+
+encrypted_text = encrypt(key, text)
+print("Encrypted text:", encrypted_text)
+
+decrypted_text = decrypt(key, encrypted_text)
+print("Decrypted text:", decrypted_text)
