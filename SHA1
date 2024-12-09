@@ -3,6 +3,5 @@ import hashlib
 def sha1(message):
     return hashlib.sha1(message.encode()).hexdigest()
 
-# Example usage
 if _name_ == "_main_":
     print(sha1("hello world"))
