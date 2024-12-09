@@ -3,5 +3,4 @@ import hashlib
 def md5_hash(message):
     return hashlib.md5(message.encode()).hexdigest()
 
-if _name_ == "_main_":
-    print(md5_hash("hello world"))
+print(md5_hash("hello world"))
