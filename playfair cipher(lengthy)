@@ -1,4 +1,4 @@
-def prepare_table(key):
+def prepare_Table(key):
     key = key.replace('j', 'i')
     seen = set()
     filtered_key = ""
